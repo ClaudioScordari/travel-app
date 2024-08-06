@@ -31,17 +31,82 @@
                 <tr class="text-center">
                     <th scope="row">{{ $trip->id }}</th>
                     <td>{{ $trip->destination }}</td>
-                    <td>{{ $trip->departure_date }}</td>
-                    <td>{{ $trip->arrival_date }}</td>
-                    <td>{{ $trip->num_people }}</td>
-                    <td>{{ $trip->transport }}</td>
-                    <td>{{ $trip->price }}</td>
-                    <td>{{ $trip->reservation }}</td>
-                    <td>{{ $trip->food }}</td>
-                    <td>{{ $trip->notes }}</td>
-                    <td>{{ $trip->travel_completed }}</td>
+
+                    {{-- data di partenza --}}
+                    @if ($trip->departure_date != null)
+                        <td>{{ $trip->departure_date }}</td>
+                    @else
+                        <td>-</td>
+                    @endif
+
+                    {{-- data di ritorno --}}
+                    @if ($trip->arrival_date != null)
+                        <td>{{ $trip->arrival_date }}</td>
+                    @else
+                        <td>-</td>
+                    @endif
+
+                    {{-- numero persone --}}
+                    @if ($trip->num_people != null)
+                        <td>{{ $trip->num_people }}</td>
+                    @else
+                        <td>Non ancora stabilito</td>
+                    @endif
+
+                    {{-- numero persone --}}
+                    @if ($trip->transport != null)
+                        <td>{{ $trip->transport }}</td>
+                    @else
+                        <td>Non ancora stabilito</td>
+                    @endif
+
+                    {{-- prezzo --}}
+                    @if ($trip->price == 0.00)
+                        <td>-</td>
+                    @else
+                        <td>{{ $trip->price }}</td>
+                    @endif
+
+                    {{-- prenotazione --}}
+                    @if ($trip->reservation == 1)
+                        <td>Prenotato</td>
+                    @else
+                        <td>Non prenotato</td>
+                    @endif
+                    
+                    {{-- cibo --}}
+                    @if ($trip->food != null)
+                        <td>{{ $trip->food }}</td>
+                    @else
+                        <td>Ancora nessun cibo</td>
+                    @endif
+
+                    {{-- note --}}
+                    @if ($trip->notes != null)
+                        <td>{{ $trip->notes }}</td>
+                    @else
+                        <td>Ancora nessuna nota</td>
+                    @endif
+
+                    {{-- fine viaggio --}}
+                    @if ($trip->travel_completed == 1)
+                        <td>Viaggio terminato</td>
+                    @else
+                        <td>Viaggio non ancora finito</td>
+                    @endif
                 </tr>
             </tbody>
         </table>
+
+        {{-- img --}}
+        <div>
+            @if ($trip->img_destination != null)
+                <div>
+                    <img style="width: 300px" src="/storage/{{ $trip->img_destination }}" alt="{{ $trip->destination }}">
+                </div>
+            @else
+                -
+            @endif
+        </div>
     </div>
 @endsection

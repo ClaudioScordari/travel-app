@@ -6,6 +6,10 @@
     <div>
         <h1>Viaggi</h1>
 
+        <div>
+            <a href="{{ route('admin.trips.create') }}">Aggiungi un viaggio</a>
+        </div>
+
         <ol>
             @foreach ($trips as $trip)
                 <li class="my-4">
