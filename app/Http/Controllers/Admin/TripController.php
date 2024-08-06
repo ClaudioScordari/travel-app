@@ -74,7 +74,7 @@ class TripController extends Controller
         }
 
         $trip = Trip::create([
-            'destination' => $validDatas['destination'],
+            'destination' => ucfirst($validDatas['destination']),
             'img_destination' => $imgPath,
             'departure_date' => $validDatas['departure_date'],
             'arrival_date' => $validDatas['arrival_date'],

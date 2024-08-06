@@ -64,14 +64,14 @@
                     @if ($trip->price == 0.00)
                         <td>-</td>
                     @else
-                        <td>{{ $trip->price }}</td>
+                        <td>€{{ $trip->price }}</td>
                     @endif
 
                     {{-- prenotazione --}}
                     @if ($trip->reservation == 1)
-                        <td>Prenotato</td>
+                        <td>SI</td>
                     @else
-                        <td>Non prenotato</td>
+                        <td>NO</td>
                     @endif
                     
                     {{-- cibo --}}
@@ -101,11 +101,9 @@
         {{-- img --}}
         <div>
             @if ($trip->img_destination != null)
-                <div>
-                    <img style="width: 300px" src="/storage/{{ $trip->img_destination }}" alt="{{ $trip->destination }}">
-                </div>
+                <img style="width: 300px" src="/storage/{{ $trip->img_destination }}" alt="{{ $trip->destination }}">
             @else
-                -
+                Ancora nessuna immagine
             @endif
         </div>
     </div>
