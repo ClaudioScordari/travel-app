@@ -10,6 +10,10 @@
             Torna ai viaggi
         </a>
 
+        <a class="btn btn-warning mb-3" href="{{ route('admin.trips.edit', ['trip' => $trip->id]); }}">
+            Modifica questo viaggio
+        </a>
+
         <table class="table">
             <thead>
                 <tr class="text-center">
@@ -50,7 +54,7 @@
                     @if ($trip->num_people != null)
                         <td>{{ $trip->num_people }}</td>
                     @else
-                        <td>Non ancora stabilito</td>
+                        <td>-</td>
                     @endif
 
                     {{-- numero persone --}}
@@ -62,9 +66,9 @@
 
                     {{-- prezzo --}}
                     @if ($trip->price == 0.00)
-                        <td>-</td>
+                        <td>Free</td>
                     @else
-                        <td>€{{ $trip->price }}</td>
+                        <td>€ {{ $trip->price }}</td>
                     @endif
 
                     {{-- prenotazione --}}

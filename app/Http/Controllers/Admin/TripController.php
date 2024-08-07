@@ -10,6 +10,7 @@ use App\Models\Trip;
 
 // Form request
 use App\Http\Requests\StoreTripRequest;
+use App\Http\Requests\UpdateTripRequest;
 
 // Facades
 use Illuminate\Support\Facades\Storage;
@@ -84,7 +85,7 @@ class TripController extends Controller
             'reservation' => $prenotazione,
             'travel_completed' => $fineViaggio,
             'food' => $validDatas['food'],
-            'notes' => $validDatas['food'],
+            'notes' => $validDatas['notes'],
         ]);
 
         return redirect()->route('admin.trips.show', compact('trip'));
@@ -101,24 +102,90 @@ class TripController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Trip $trip)
     {
-        //
+        return view('admin.trips.edit', compact('trip'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateTripRequest $request, Trip $trip)
     {
-        //
+        $validDatas = $request->validated();
+        
+        // se è gratis
+        if (isset($validDatas['free'])) {
+            $validDatas['price'] = 0;
+        }
+
+        // prenotazione
+        $prenotazione = false; // default
+        if (isset($validDatas['reservation'])) {
+            $prenotazione = true;
+        }
+
+        // fine viaggio
+        $fineViaggio = false; // default
+        if (isset($validDatas['travel_completed'])) {
+            $fineViaggio = true;
+        }
+
+        // default -> setto img a quella che è presente nell'istanza
+        $imgPath = $trip->img_destination;
+
+        // se arriva l'img
+        if (isset($validDatas['img_destination'])) {
+
+            // Controllo se il percorso corrente è pieno...
+            if ($trip->img_destination != null) {
+
+                // Elimino il percorso corrente
+                Storage::disk('public')->delete($trip->img_destination);
+            }
+
+            // Setto il nuovo percorso
+            $imgPath = Storage::disk('public')->put('img', $validDatas['img_destination']);
+
+        }
+        // Altrimenti se voglio eliminare l'img (mi arriva true da una checkbox)
+        else if (isset($validDatas['remove_img'])) {
+
+            // elimino il percorso
+            Storage::disk('public')->delete($trip->img_destination);
+            
+            // mi riempio la var del percorso a null
+            $imgPath = null;
+        }
+
+        $trip->update([
+            'destination' => ucfirst($validDatas['destination']),
+            'img_destination' => $imgPath,
+            'departure_date' => $validDatas['departure_date'],
+            'arrival_date' => $validDatas['arrival_date'],
+            'num_people' => $validDatas['num_people'],
+            'transport' => $validDatas['transport'],
+            'price' => $validDatas['price'],
+            'reservation' => $prenotazione,
+            'travel_completed' => $fineViaggio,
+            'food' => $validDatas['food'],
+            'notes' => $validDatas['notes'],
+        ]);
+
+        return redirect()->route('admin.trips.show', compact('trip'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Trip $trip)
     {
-        //
+        if ($trip->img_destination != null) {
+            Storage::disk('public')->delete($trip->img_destination);
+        }
+
+        $trip->delete();
+
+        return redirect()->route('admin.trips.index');
     }
 }

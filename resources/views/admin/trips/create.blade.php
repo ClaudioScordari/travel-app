@@ -24,7 +24,7 @@
 
             <div>
                 <label for="destination">Destinazione</label>
-                <input type="text" name="destination" id="destination" required maxlength="64">
+                <input required value="{{ old('destination') }}" type="text" name="destination" id="destination" maxlength="64">
             </div>
 
             <div>
@@ -34,27 +34,27 @@
 
             <div>
                 <label for="departure_date">Data di partenza</label>
-                <input type="date" name="departure_date" id="departure_date">
+                <input value="{{ old('departure_date') }}" type="date" name="departure_date" id="departure_date">
             </div>
 
             <div>
                 <label for="arrival_date">Data di ritorno</label>
-                <input type="date" name="arrival_date" id="arrival_date">
+                <input value="{{ old('arrival_date') }}" type="date" name="arrival_date" id="arrival_date">
             </div>
 
             <div>
                 <label for="num_people">Numero di persone</label>
-                <input type="number" name="num_people" id="num_people" min="0" max="30">
+                <input value="{{ old('num_people') }}" type="number" name="num_people" id="num_people" min="0" max="30">
             </div>
 
             <div>
                 <label for="transport">Con quale mezzo</label>
-                <input type="text" name="transport" id="transport" min="0" max="24">
+                <input value="{{ old('transport') }}" type="text" name="transport" id="transport" min="0" max="24">
             </div>
 
             <div>
-                <label for="price">Costo</label>
-                <input step="0.01" type="number" name="price" id="price" min="0" max="9999.99">
+                <label for="price">Costo €</label>
+                <input value="{{ old('price') }}" step="0.01" type="number" name="price" id="price" min="0" max="9999.99">
             </div>
 
             <div>
@@ -69,12 +69,12 @@
 
             <div>
                 <label for="food">Cibo da provare</label>
-                <textarea name="food" id="food" cols="30" rows="5" maxlength="4096"></textarea>
+                <textarea name="food" id="food" cols="30" rows="5" maxlength="4096">{{ old('food') }}</textarea>
             </div>
 
             <div>
                 <label for="notes">Note da aggiungere</label>
-                <textarea name="notes" id="notes" cols="30" rows="5" maxlength="4096"></textarea>
+                <textarea name="notes" id="notes" cols="30" rows="5" maxlength="4096">{{ old('notes') }}</textarea>
             </div>
 
             <div>
