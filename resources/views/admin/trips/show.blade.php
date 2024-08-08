@@ -14,6 +14,15 @@
             Modifica questo viaggio
         </a>
 
+        <form onsubmit="return confirm('Sicuro che vuoi eliminare il viaggio?')" action="{{ route('admin.trips.destroy', ['trip' => $trip->id]) }}" method="POST">
+            @csrf
+            @method('DELETE')
+
+            <button type="submit" class="btn btn-danger">
+                Elimina il viaggio
+            </button>
+        </form>
+
         <table class="table">
             <thead>
                 <tr class="text-center">
