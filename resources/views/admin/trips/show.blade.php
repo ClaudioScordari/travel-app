@@ -14,6 +14,10 @@
             Modifica questo viaggio
         </a>
 
+        <a class="btn btn-success mb-3" href="{{ route('admin.places.create'); }}">
+            Crea una tappa del viaggio
+        </a>
+
         <form onsubmit="return confirm('Sicuro che vuoi eliminare il viaggio?')" action="{{ route('admin.trips.destroy', ['trip' => $trip->id]) }}" method="POST">
             @csrf
             @method('DELETE')
@@ -43,6 +47,7 @@
             <tbody>   
                 <tr class="text-center">
                     <th scope="row">{{ $trip->id }}</th>
+                    
                     <td>{{ $trip->destination }}</td>
 
                     {{-- data di partenza --}}
@@ -118,6 +123,19 @@
             @else
                 Ancora nessuna immagine
             @endif
+        </div>
+
+        {{-- places --}}
+        <div>
+            @forelse ($trip->places as $place)
+                <ul>
+                    <li>
+                        <a href="{{ route('admin.places.show', ['place' => $place->id]) }}">{{ $place->name }}</a>
+                    </li>
+                </ul>
+            @empty
+                -
+            @endforelse
         </div>
     </div>
 @endsection

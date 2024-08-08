@@ -22,7 +22,7 @@ class Place extends Model
     ];
 
     // Relationships
-    public function trip ()
+    public function trip()
 	{
 		return $this->belongsTo(Trip::class);
 	}

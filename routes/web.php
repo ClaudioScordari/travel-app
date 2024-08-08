@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\Admin\MainController as AdminMainController;
 use App\Http\Controllers\Admin\TripController;
+use App\Http\Controllers\Admin\PlaceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,7 @@ Route::prefix('admin')
 
     // Creazione di tutte le rotte
     Route::resource('trips', TripController::class);
+    Route::resource('places', PlaceController::class);
 
 });
 

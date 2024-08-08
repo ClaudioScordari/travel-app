@@ -24,7 +24,7 @@ class Trip extends Model
     ];
 
     // Relationships
-    public function places ()
+    public function places()
 	{
 		return $this->hasMany(Place::class);
 	}
